@@ -5,6 +5,7 @@ let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('e
 const calender = document.getElementById('calendar');
 const newEventModal = document.getElementById('newEventModal');
 const backDrop = document.getElementById('modalBackDrop');
+const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function openModal (date) {
@@ -66,7 +67,28 @@ function load() {
 }
 
 function closeModal(){
-  
+  eventTitleInput.classList.remove('error');
+  newEventModal.style.display = 'none';
+  backDrop.style.display = 'none';
+  eventTitleInput.value = '';
+  clicked = null;
+  load();
+}
+
+function saveEvent() {
+  if (eventTitleInput.value) {
+    eventTitleInput.classList.remove('error'); 
+
+    events.push({
+      date: clicked,
+      title: eventTitleInput.value,
+    });
+
+    localStorage.setItem('events', JSON.stringify(events));
+    closeModal();
+  } else {
+    eventTitleInput.classList.add('error');
+  }
 }
 
 function initButtons() {
@@ -80,9 +102,9 @@ function initButtons() {
     load();
   });
 
-  document.getElementById('saveButton', () => {});
+  document.getElementById('saveButton').addEventListener('click', saveEvent);
 
-  document.getElementById('cancelButton', closeModal);
+  document.getElementById('cancelButton').addEventListener('click', closeModal);
 }
 
 initButtons();
