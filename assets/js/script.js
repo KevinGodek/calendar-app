@@ -54,10 +54,21 @@ function load() {
     const daySquare = document.createElement('div');
     daySquare.classList.add('day');
 
+    const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+
     if (i > paddingDays) {
       daySquare.innerText = i - paddingDays;
+
+      const eventForDay = events.find(e => e.date === dayString);
+
+      if (eventForDay) {
+        const eventDiv = document.createElement('div');
+        eventDiv.classList.add('event');
+        eventDiv.innerText = (eventForDay.title);
+        daySquare.appendChild(eventDiv);
+      }
       
-      daySquare.addEventListener('click', () => openModal(`${month + 1}/${i - paddingDays}/${year}`));
+      daySquare.addEventListener('click', () => openModal(dayString));
     } else {
       daySquare.classList.add('padding');
     }
