@@ -65,6 +65,10 @@ function load() {
   } 
 }
 
+function closeModal(){
+  
+}
+
 function initButtons() {
   document.getElementById('nextButton').addEventListener('click', () => {
     nav++;
@@ -75,6 +79,10 @@ function initButtons() {
     nav--;
     load();
   });
+
+  document.getElementById('saveButton', () => {});
+
+  document.getElementById('cancelButton', closeModal);
 }
 
 initButtons();
